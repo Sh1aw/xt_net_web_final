@@ -21,7 +21,7 @@
                 <p>@commentary.Text</p>
             </div>
             <span>Отправлено: @commentary.CreationTime</span>
-            @if ((User.Identity.IsAuthenticated && (User.IsInRole("admin")) || (User.Identity.IsAuthenticated && userLogic.GetByEmail(User.Identity.Name).Id==commentary.UserId)))
+            @if ((User.Identity.IsAuthenticated && (User.IsInRole("admin")) || (User.Identity.IsAuthenticated  && userLogic.GetByEmail(User.Identity.Name).Id==commentary.UserId)))
             {
                 <button class="removeComment btn btn-sm btn-danger">Удалить</button>
             }
