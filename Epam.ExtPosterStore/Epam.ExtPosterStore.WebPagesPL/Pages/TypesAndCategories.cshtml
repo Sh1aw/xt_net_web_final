@@ -10,7 +10,7 @@
     var categories = categoryLogic.GetAll();
     var types = typesLogic.GetAll();
 }
-    <div id="adminContainer" class="main" style="padding: 20px">
+    <div id="adminContainer" class="main">
         <div style="text-align: center;padding: 10px">
             <a class="btn btn-danger" id="showCatAdmin">Администрирование категорий товаров:</a>
         </div>
@@ -27,7 +27,7 @@
                     {
                         <tr id="cat-@category.Id">
                             <th>@category.Id</th>
-                            <th><input type="text" value="@category.Tittle" /></th>
+                            <th><input class="form-control" type="text" value="@category.Tittle" /></th>
                             <th rel="btn"><button class="saveEditCat btn btn-info">Изменить</button></th>
                             <th><button class="removeCat btn btn-danger">Удалить</button></th>
                         </tr>
@@ -59,7 +59,7 @@
                     {
                         <tr id="cat-@type.Id">
                             <th>@type.Id</th>
-                            <th><input type="text" value="@type.Tittle" /></th>
+                            <th><input class="form-control" type="text" value="@type.Tittle" /></th>
                             <th rel="btn"><button class="saveEditType btn btn-info">Изменить</button></th>
                             <th><button class="removeType btn btn-danger">Удалить</button></th>
                         </tr>
@@ -77,22 +77,5 @@
     </div>
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/typeScripts.js"></script>
-<script>
-    $("#showCatAdmin").click(function(e) {
-        if ($("#catAdmin").is(":hidden")) {
-            $("#catAdmin").slideDown();
-        }
-        else {
-            $("#catAdmin").slideUp();
-        }
-    })
-    $("#showTypeAdmin").click(function(e) {
-        if ($("#typeAdmin").is(":hidden")) {
-            $("#typeAdmin").slideDown();
-        }
-        else {
-            $("#typeAdmin").slideUp();
-        }
-    })
-</script>
+<script src="~/Scripts/TypeScripts.js"></script>
+

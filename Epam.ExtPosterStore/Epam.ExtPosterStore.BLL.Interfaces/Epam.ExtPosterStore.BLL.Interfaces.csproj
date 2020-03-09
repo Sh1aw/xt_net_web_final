@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ICartLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
+    <Compile Include="ICommentLogic.cs" />
     <Compile Include="IOrderLogic.cs" />
     <Compile Include="IOrderStateLogic.cs" />
     <Compile Include="IProductLogic.cs" />

@@ -13,7 +13,8 @@ namespace Epam.ExtPosterStore.DAL
 {
     public class OrderStateDao : IOrderStateDao
     {
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["SQLConnectionString"].ConnectionString;
+        private readonly string _connectionString 
+            = ConfigurationManager.ConnectionStrings["SQLConnectionString"].ConnectionString;
         public IEnumerable<OrderState> GetAll()
         {
             var states = new List<OrderState>();

@@ -56,7 +56,7 @@
                 }
             </div>
         </div>
-        <div class="nav_menu">
+        <div class="nav_menu bg-info">
             <div class="con">
                 <ul class="menu">
                     <li><a href="~/index.cshtml">Наша продукция</a></li>
@@ -76,7 +76,7 @@
 <div>
     @RenderBody()
 </div>
-<footer>
+<footer class="bg-info">
 </footer>
 </body>
 </html>
@@ -100,4 +100,6 @@
         }
         
     });
+    if ($(document).height() <= $(window).height())
+        $("footer").addClass("fixed-bottom");
 </script>

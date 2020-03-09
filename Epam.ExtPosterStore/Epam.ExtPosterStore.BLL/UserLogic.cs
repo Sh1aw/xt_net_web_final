@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Security;
 using Epam.ExtPosterStore.BLL.Common;
 using Epam.ExtPosterStore.BLL.Interfaces;
@@ -22,7 +18,8 @@ namespace Epam.ExtPosterStore.BLL
             _userDao = userDao;
             _roleDao = roleDao;
         }
-        public int Add(string email, string password, string passwordCon, string firstName, string secondName, string phoneNumber)
+        public int Add(string email, string password, string passwordCon,
+                        string firstName, string secondName, string phoneNumber)
         {
             if ((String.IsNullOrWhiteSpace(password)||string.IsNullOrWhiteSpace(passwordCon)) || !password.Equals(passwordCon))
             {
@@ -85,7 +82,8 @@ namespace Epam.ExtPosterStore.BLL
             return false;
         }
 
-        public int UpdateUserInfo(string email,string firstName, string secondName, string phoneNumber)
+        public int UpdateUserInfo(string email,string firstName,
+                                    string secondName, string phoneNumber)
         {
             var currentUser = _userDao.GetByEmail(email);
             if (currentUser != null)
@@ -114,8 +112,9 @@ namespace Epam.ExtPosterStore.BLL
 
         public int UpdatePassword(string email, string oldPassword, string password, string passwordCon)
         {
-            if ((String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordCon)
-                || String.IsNullOrWhiteSpace(oldPassword)) || !password.Equals(passwordCon))
+            if ((String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(password) 
+                || string.IsNullOrWhiteSpace(passwordCon) || String.IsNullOrWhiteSpace(oldPassword))
+                || !password.Equals(passwordCon))
             {
                 return 400;
             }

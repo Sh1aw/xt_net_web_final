@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartDao.cs" />
+    <Compile Include="CommentDao.cs" />
     <Compile Include="OrderDao.cs" />
     <Compile Include="OrderStateDao.cs" />
     <Compile Include="PayDao.cs" />

@@ -16,11 +16,11 @@
             p.Id, (i, p) => new {tittle = p.Tittle, Id = p.Id,type = p.TypeOfProduct.Tittle, price = p.Price, count = i.CountProduct});
 }
 
-<div class="main" style="padding: 20px">
+<div class="main" style="padding: 20px;overflow: auto">
     <h2>Ваша корзина:</h2>
     @if (cart.GetAll().Any())
     {
-        <table class="table table-bordered" style="text-align: center">
+        <table class="table table-bordered" style="text-align: center; ">
             <thead>
                 <tr>
                     <th>id товара</th>

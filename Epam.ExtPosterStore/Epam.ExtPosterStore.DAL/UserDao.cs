@@ -157,8 +157,10 @@ namespace Epam.ExtPosterStore.DAL
                 {
                     while (reader.Read())
                     {
-                        var user = new User(reader["email"] as string, reader["password"] as string, reader["name"] as string,
-                            reader["surname"] as string,reader["phone"] as string, new Role(reader["role_name"] as string));
+                        var user = new User(reader["email"] as string, 
+                            reader["password"] as string, reader["name"] as string,
+                            reader["surname"] as string,reader["phone"] as string,
+                            new Role(reader["role_name"] as string));
                         user.Id = (int)reader["id"];
                         user.Role.Id = (int) reader["id_role"];
                         users.Add(user);
@@ -191,8 +193,10 @@ namespace Epam.ExtPosterStore.DAL
                 {
                     while (reader.Read())
                     {
-                        user = new User(reader["email"] as string, reader["password"] as string, reader["name"] as string,
-                            reader["surname"] as string, reader["phone"] as string, new Role(reader["role_name"] as string));
+                        user = new User(reader["email"] as string,
+                            reader["password"] as string, reader["name"] as string,
+                            reader["surname"] as string, reader["phone"] as string,
+                            new Role(reader["role_name"] as string));
                         user.Id = (int)reader["id"];
                         user.Role.Id = (int)reader["id_role"];
                     }
@@ -224,8 +228,12 @@ namespace Epam.ExtPosterStore.DAL
                 {
                     while (reader.Read())
                     {
-                        user = new User(reader["email"] as string, reader["password"] as string, reader["name"] as string,
-                            reader["surname"] as string, reader["phone"] as string, new Role(reader["role_name"] as string));
+                        user = new User(reader["email"] as string,
+                            reader["password"] as string,
+                            reader["name"] as string,
+                            reader["surname"] as string, 
+                            reader["phone"] as string,
+                            new Role(reader["role_name"] as string));
                         user.Id = (int)reader["id"];
                         user.Role.Id = (int)reader["id_role"];
                     }

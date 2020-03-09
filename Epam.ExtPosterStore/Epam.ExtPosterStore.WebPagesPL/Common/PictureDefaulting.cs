@@ -24,7 +24,6 @@ namespace Epam.ExtPosterStore.WebPagesPL.Common
         {
             if (imBytes != null)
             {
-                //return ImageToBinaryConverter.DeconvertToImage(imBytes);
                 return "data:image/jpeg;base64," + ImageToBinaryConverter.DeconvertToImage(imBytes);
             }
             else

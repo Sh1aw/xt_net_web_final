@@ -21,6 +21,7 @@ namespace Epam.ExtPosterStore.BLL.Ioc
 
 
 
+
         private static ICategoryDao _categoryDao;
         public static ICategoryDao CategoryDao =>
             _categoryDao ?? (_categoryDao = new CategoryDao());
@@ -29,6 +30,7 @@ namespace Epam.ExtPosterStore.BLL.Ioc
 
         public static ICategoryLogic CategoryLogic =>
             _categoryLogic ?? (_categoryLogic = new CategoryLogic(CategoryDao,ProductDao));
+
 
 
 
@@ -42,14 +44,17 @@ namespace Epam.ExtPosterStore.BLL.Ioc
             _typeOfProductLogic ?? (_typeOfProductLogic = new TypeOfProductLogic(TypeOfProductDao,ProductDao));
 
 
+
+
         private static IOrderStateDao _orderStateDao;
         public static IOrderStateDao OrderStateDao =>
             _orderStateDao ?? (_orderStateDao = new OrderStateDao());
 
-        private static IOrderStateLogic _orderStateLogic;
 
+        private static IOrderStateLogic _orderStateLogic;
         public static IOrderStateLogic OrderStateLogic =>
             _orderStateLogic ?? (_orderStateLogic = new OrderStateLogic(OrderStateDao));
+
 
 
 
@@ -58,35 +63,36 @@ namespace Epam.ExtPosterStore.BLL.Ioc
         public static IRoleDao RoleDao =>
             _roleDao ?? (_roleDao = new RoleDao());
 
+
         private static IRoleLogic _roleLogic;
         public static IRoleLogic RoleLogic =>
             _roleLogic ?? (_roleLogic = new RoleLogic(RoleDao));
+
+
+
 
 
         private static IUserDao _userDao;
         public static IUserDao UserDao =>
             _userDao ?? (_userDao = new UserDao());
 
-        private static IUserLogic _userLogic;
 
+        private static IUserLogic _userLogic;
         public static IUserLogic UserLogic =>
             _userLogic ?? (_userLogic = new UserLogic(UserDao,RoleDao));
 
-        //private static ICartDao _cartDao = new CartDao();
+
+
+
 
         public static ICartDao CartDao => new CartDao();
-            //_cartDao ?? (_cartDao = new CartDao());
-
-        //private static ICartLogic _cartLogic = new CartLogic(_cartDao,ProductDao);
-
         public static ICartLogic CartLogic => new CartLogic(CartDao,ProductDao);
-        //_cartLogic ?? (_cartLogic = new CartLogic(CartDao));
 
 
         private static IPayDao _payDao;
-
         public static IPayDao PayDao =>
             _payDao ?? (_payDao = new PayDao());
+
 
 
 
@@ -95,20 +101,33 @@ namespace Epam.ExtPosterStore.BLL.Ioc
         public static IOrderDao OrderDao =>
             _orderDao ?? (_orderDao = new OrderDao());
 
-        private static IOrderLogic _orderLogic;
 
+        private static IOrderLogic _orderLogic;
         public static IOrderLogic OrderLogic =>
             _orderLogic ?? (_orderLogic = new OrderLogic(OrderDao,OrderStateDao,PayDao,UserDao));
+
+
+
 
 
         private static IProductOrderDao _productOrderDao;
         public static IProductOrderDao ProductOrderDao =>
             _productOrderDao ?? (_productOrderDao = new ProductOrderDao());
 
-        private static IProductOrderLogic _productOrderLogic;
 
+        private static IProductOrderLogic _productOrderLogic;
         public static IProductOrderLogic ProductOrderLogic =>
             _productOrderLogic ?? (_productOrderLogic = new ProductOrderLogic(ProductOrderDao));
 
+
+
+        private static ICommentDao _commentDao;
+        public static ICommentDao CommentDao =>
+            _commentDao ?? (_commentDao = new CommentDao());
+
+
+        private static ICommentLogic _commentLogic;
+        public static ICommentLogic CommentLogic =>
+            _commentLogic ?? (_commentLogic = new CommentLogic(CommentDao, ProductDao, UserDao));
     }
 }

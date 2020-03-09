@@ -1,0 +1,16 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    Layout = null;
+    if (IsPost)
+    {
+        if (InputNormalizer.ValidateInt(Request.Form["IdComment"]))
+        {
+            var commentLogic = DependencyResolver.CommentLogic;
+            var idComment =Int32.Parse(Request.Form["IdComment"]);
+            int response = commentLogic.Remove(idComment);
+            Response.StatusCode = response;
+        }
+    }
+}
+

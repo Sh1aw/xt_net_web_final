@@ -94,20 +94,19 @@
     <Content Include="Content\style.css" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CartScripts.js" />
-    <Content Include="Scripts\categoryScipts.js" />
     <Content Include="Scripts\ItemViewScripts.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\OrderFullScripts.js" />
     <Content Include="Scripts\OrdersPageScripts.js" />
+    <Content Include="Scripts\PersonalAccountScripts.js" />
     <Content Include="Scripts\ProductsListScript.js" />
-    <Content Include="Scripts\typeScripts.js" />
+    <Content Include="Scripts\TypeScripts.js" />
     <Content Include="Scripts\UsersScripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ImageToBinaryConverter.cs" />
     <Compile Include="Common\InputNormalizer.cs" />
-    <Compile Include="Common\MailSender.cs" />
     <Compile Include="Common\MyRoleProvider.cs" />
     <Compile Include="Common\PictureDefaulting.cs" />
     <Compile Include="Common\PictureValidator.cs" />
@@ -145,7 +144,6 @@
     <Content Include="Pages\Partials\_PartialOrderProductInfo.cshtml" />
     <Content Include="Pages\ActionHandlers\OrderActions\AbortOrder.cshtml" />
     <Content Include="Pages\ActionHandlers\OrderActions\ChangeState.cshtml" />
-    <Content Include="test.cshtml" />
     <Content Include="Pages\Partials\PartialOrders.cshtml" />
     <Content Include="Pages\ActionHandlers\ProductActions\ShowProduct.cshtml" />
     <Content Include="Pages\ActionHandlers\ProductActions\DeleteProduct.cshtml" />
@@ -169,6 +167,9 @@
     <Content Include="Pages\ErrorPages\Error404.cshtml" />
     <Content Include="Pages\ErrorPages\ChangePasswordError.cshtml" />
     <Content Include="Pages\ErrorPages\Error403.cshtml" />
+    <Content Include="Pages\Partials\PartialComments.cshtml" />
+    <Content Include="Pages\ActionHandlers\CommentActions\AddComment.cshtml" />
+    <Content Include="Pages\ActionHandlers\CommentActions\RemoveComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

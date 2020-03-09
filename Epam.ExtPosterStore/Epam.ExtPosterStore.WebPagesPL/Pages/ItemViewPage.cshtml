@@ -38,7 +38,7 @@
                     @if (product.Visibility)
                     {
                         <div>
-                            <button id="addToCart" value="@product.Id" style="display: inline-block" class=" btn btn-info">Добавить в корзину</button>
+                            <button id="addToCart" value="@product.Id" class=" btn btn-info">Добавить в корзину</button>
                         </div>
                     }
                     else
@@ -48,6 +48,20 @@
                 </div>
             </div>
         </div>
+    </div>
+    <input type="hidden" id="productId" value="@product.Id"/>
+    <div class="commentsWrapper">
+        <h5>Отзывы</h5>
+        <div id="targetComments">
+            @RenderPage("~/Pages/Partials/PartialComments.cshtml")
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="form-group">
+                <textarea id="textComment" class="form-control"></textarea>
+            </div>
+            <button id="addComment" class="btn btn-info">Оставить отзыв</button>
+        }
     </div>
 </div>
 <script src="~/Scripts/jquery-3.4.1.js"></script>

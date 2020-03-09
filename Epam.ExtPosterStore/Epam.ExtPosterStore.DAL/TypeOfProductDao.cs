@@ -13,7 +13,8 @@ namespace Epam.ExtPosterStore.DAL
 {
     public class TypeOfProductDao : ITypeOfProductDao
     {
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["SQLConnectionString"].ConnectionString;
+        private readonly string _connectionString 
+            = ConfigurationManager.ConnectionStrings["SQLConnectionString"].ConnectionString;
         public TypeOfProduct Add(TypeOfProduct type)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

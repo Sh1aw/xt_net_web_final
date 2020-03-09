@@ -39,7 +39,6 @@ namespace Epam.ExtPosterStore.WebPagesPL.Common
             {
                 var role = _roleLogic.GetById(user.Role.Id);
                 return new string[] { role.Name };
-                //return new string[] {"user"};
             }
             else
             {

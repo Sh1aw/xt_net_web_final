@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CartLogic.cs" />
     <Compile Include="CategoryLogic.cs" />
+    <Compile Include="CommentLogic.cs" />
     <Compile Include="Common\FormValidation.cs" />
     <Compile Include="Common\ImageConverter.cs" />
     <Compile Include="Common\ImageValidation.cs" />

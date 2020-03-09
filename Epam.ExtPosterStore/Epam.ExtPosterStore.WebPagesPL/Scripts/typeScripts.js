@@ -104,3 +104,20 @@ $("#addType").click(function (e) {
         },
     });
 });
+
+$("#showCatAdmin").click(function (e) {
+    if ($("#catAdmin").is(":hidden")) {
+        $("#catAdmin").slideDown();
+    }
+    else {
+        $("#catAdmin").slideUp();
+    }
+})
+$("#showTypeAdmin").click(function (e) {
+    if ($("#typeAdmin").is(":hidden")) {
+        $("#typeAdmin").slideDown();
+    }
+    else {
+        $("#typeAdmin").slideUp();
+    }
+});

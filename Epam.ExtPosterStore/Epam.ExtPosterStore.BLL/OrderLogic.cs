@@ -11,10 +11,10 @@ namespace Epam.ExtPosterStore.BLL
 {
     public class OrderLogic : IOrderLogic
     {
-        private IOrderDao _orderDao;
-        private IOrderStateDao _orderStateDao;
-        private IPayDao _payDao;
-        private IUserDao _userDao;
+        private readonly IOrderDao _orderDao;
+        private readonly IOrderStateDao _orderStateDao;
+        private readonly IPayDao _payDao;
+        private readonly IUserDao _userDao;
 
         public OrderLogic(IOrderDao orderDao, IOrderStateDao oreStateDao, IPayDao payDao, IUserDao userDao)
         {

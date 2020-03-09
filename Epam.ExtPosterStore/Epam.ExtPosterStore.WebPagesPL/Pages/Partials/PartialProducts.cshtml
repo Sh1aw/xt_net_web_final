@@ -82,13 +82,13 @@
         <div class="inner">
             <img src='@PictureDefaulting.GetBynaryImage(product.Image)'/>
             <div class="item_info">
-                <div>Тип: @product.TypeOfProduct.Tittle</div>
-                <div>Наименование: @product.Tittle</div>
-                <div>Категория: @product.ProductCategory.Tittle</div>
+                <div><span class="prop">Тип:</span> @product.TypeOfProduct.Tittle</div>
+                <div><span class="prop">Наименование:</span> @product.Tittle</div>
+                <div><span class="prop">Категория:</span> @product.ProductCategory.Tittle</div>
                 <div style="font-weight: bold">
                     @if (@product.Visibility)
                     {
-                        <span>@product.Price₽</span>
+                        <span class="priceProp">@product.Price₽</span>
                     }
                     else
                     {

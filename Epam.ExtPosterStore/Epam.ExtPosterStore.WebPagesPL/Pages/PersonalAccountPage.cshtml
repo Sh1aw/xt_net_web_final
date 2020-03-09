@@ -23,8 +23,9 @@
                 <input id="surnameInput" class="form-control form-control-sm" type="text" required value="@curUser.Surname" name="second_name" disabled />
             </div>
             <div class="form-group">
-                <label for="inputPhone">Номер телефона: 89*********</label>
+                <label for="inputPhone">Номер телефона: </label>
                 <input id="inputPhone" class="form-control form-control-sm" type="tel" pattern="[8]{1}[0-9]{10}" value="@curUser.PhoneNumber" name="phone_number" disabled />
+                <small id="phoneHelp" class="form-text text-muted">Телефон - 11 цифр; Пример: 89879199191.</small>
             </div>
         </form>
         <button id="eddit_allow">Редактировать</button>
@@ -50,19 +51,5 @@
     </div>
 </div>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-<script>
-    $("#eddit_allow").click(function(e) {
-        $(".personal_info input").each(function(r) {
-            this.removeAttribute("disabled");
-        });
-        $("#eddit_allow").hide();
-        $("#reset_password_allow").hide();
-        $(".personal_info form").append("<input class='btn' type='submit' value='Сохранить'>");
-    });
-    $("#reset_password_allow").click(function(e) {
-        $(".personal_info").hide();
-        $(".reset_password").show();
-    });
-
-</script>
+<script src="~/Scripts/PersonalAccountScripts.js"></script>
 

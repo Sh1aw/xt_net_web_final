@@ -168,9 +168,12 @@ namespace Epam.ExtPosterStore.DAL
                 {
                     while (reader.Read())
                     {
-                        var product = new Product(reader["tittle"] as string, new TypeOfProduct(reader["type_tittle"] as string), 
-                            new Category(reader["category_tittle"] as string), (decimal)reader["width"], (decimal)reader["height"],
-                            (decimal)reader["price"],reader["image"] as byte[],(bool)reader["visibility"]);
+                        var product = new Product(reader["tittle"] as string, 
+                            new TypeOfProduct(reader["type_tittle"] as string), 
+                            new Category(reader["category_tittle"] as string),
+                            (decimal)reader["width"], (decimal)reader["height"],
+                            (decimal)reader["price"],reader["image"] as byte[],
+                            (bool)reader["visibility"]);
                         product.Id = (int)reader["id"];
                         product.TypeOfProduct.Id = (int) reader["id_type"];
                         product.ProductCategory.Id = (int) reader["id_category"];
