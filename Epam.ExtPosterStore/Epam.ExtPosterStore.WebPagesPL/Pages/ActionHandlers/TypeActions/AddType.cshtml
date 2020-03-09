@@ -1,0 +1,11 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        var typeLogic = DependencyResolver.TypeOfProductLogic;
+        var typeTittle = Request.Form["itemTittle"];
+        Response.StatusCode = typeLogic.Add(typeTittle);
+    }
+}

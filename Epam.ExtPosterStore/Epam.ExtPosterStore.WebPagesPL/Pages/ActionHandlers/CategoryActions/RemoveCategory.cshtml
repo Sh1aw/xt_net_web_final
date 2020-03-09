@@ -1,0 +1,15 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        if (InputNormalizer.ValidateInt(Request.Form["itemId"]))
+        {
+            var categoryLogic = DependencyResolver.CategoryLogic;
+            var categoryId = Int32.Parse(Request.Form["itemId"]);
+            Response.StatusCode = categoryLogic.Remove(categoryId);
+        }
+
+    }
+}

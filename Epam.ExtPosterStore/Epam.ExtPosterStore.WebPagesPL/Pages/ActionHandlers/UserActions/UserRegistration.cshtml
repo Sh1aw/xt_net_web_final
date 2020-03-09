@@ -1,0 +1,34 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    if (IsPost)
+    {
+        var email = Request["email"].Trim().ToLower();
+        var password = Request["password"];
+        var passwordConfirmation = Request["password_confirm"];
+        var firstName = Request["first_name"];
+        var secondName = Request["second_name"];
+        var phoneNumber = Request["phone_number"] ?? null;
+
+        var userLogic = DependencyResolver.UserLogic;
+        var response = userLogic.Add(email, password, passwordConfirmation, firstName, secondName, phoneNumber);
+        switch (response)
+        {
+            case 200:
+            {
+                FormsAuthentication.SetAuthCookie(email,true);
+                Response.Redirect("~/index.cshtml");
+                break;
+            }
+            case 500:
+            {
+                Response.Redirect("~/Pages/ErrorPages/Error500.cshtml");
+                break;
+            }
+            default:
+            {
+                Response.Redirect("~/Pages/ErrorPages/RegistrationError.cshtml");
+                break;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    if (IsPost)
+    {
+        var email = Request["email"];
+        var password = Request["password"];
+
+        var userLogic = DependencyResolver.UserLogic;
+        var response = userLogic.Authorization(email, password);
+
+        if (response)
+        {
+            Response.Redirect("~/Index.cshtml");
+        }
+        else
+        {
+            Response.Redirect("~/Pages/ErrorPages/AuthorizationError.cshtml");
+        }
+    }
+    
+}
+

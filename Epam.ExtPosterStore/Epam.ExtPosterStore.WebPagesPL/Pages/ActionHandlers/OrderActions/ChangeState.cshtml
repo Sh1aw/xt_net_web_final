@@ -1,0 +1,23 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        if (InputNormalizer.ValidateInt(Request["IdOrder"]) && InputNormalizer.ValidateInt(Request["IdState"]))
+        {
+            var orderId = Int32.Parse(Request["IdOrder"]);
+            var stateId = Int32.Parse(Request["IdState"]);
+            var orderLogic = DependencyResolver.OrderLogic;
+            var response = orderLogic.ChangeState(orderId,stateId);
+            string responseBody = null;
+            bool success = false;
+            if (response!=null)
+            {
+                success = true;
+                responseBody = response.Tittle;
+            }
+            Response.Write(Json.Encode(new {success = success,responseText = responseBody}));
+        }
+    }
+}
+

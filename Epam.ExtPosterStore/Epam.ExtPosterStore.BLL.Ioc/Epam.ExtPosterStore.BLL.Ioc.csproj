@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E451C36F-C4A1-4F4C-8E63-111818AD6549}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Epam.ExtPosterStore.BLL.Ioc</RootNamespace>
+    <AssemblyName>Epam.ExtPosterStore.BLL.Ioc</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Epam.ExtPosterStore.BLL.Interfaces\Epam.ExtPosterStore.BLL.Interfaces.csproj">
+      <Project>{0dbed11c-de34-40c3-8e98-b2a8eb0c7b52}</Project>
+      <Name>Epam.ExtPosterStore.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epam.ExtPosterStore.BLL\Epam.ExtPosterStore.BLL.csproj">
+      <Project>{aa7c6357-8845-4d56-9fa8-2f9e01ff6e4a}</Project>
+      <Name>Epam.ExtPosterStore.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epam.ExtPosterStore.DAL\Epam.ExtPosterStore.DAL.csproj">
+      <Project>{04883e6b-dc05-4013-82f7-6d00b3158134}</Project>
+      <Name>Epam.ExtPosterStore.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epam.ExtPosterStore.Dao.Interfaces\Epam.ExtPosterStore.Dao.Interfaces.csproj">
+      <Project>{23d2749b-8572-420f-92f8-0fefb93575fd}</Project>
+      <Name>Epam.ExtPosterStore.Dao.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

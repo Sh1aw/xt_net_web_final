@@ -1,0 +1,15 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        if (InputNormalizer.ValidateInt(Request.Form["userId"]) && InputNormalizer.ValidateInt(Request.Form["roleId"]))
+        {
+            var userLogic = DependencyResolver.UserLogic;
+            var userId = Int32.Parse(Request.Form["userId"]);
+            var roleId = Int32.Parse(Request.Form["roleId"]);
+            Response.StatusCode = userLogic.ChangeRole(userId, User.Identity.Name, roleId);
+        }
+    }
+}
+

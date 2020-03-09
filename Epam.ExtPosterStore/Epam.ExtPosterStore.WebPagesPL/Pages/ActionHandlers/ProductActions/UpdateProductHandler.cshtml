@@ -1,0 +1,53 @@
+﻿@using System.Globalization
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@using System.Web;
+@using Epam.ExtPosterStore.Logger
+@{
+    if (IsPost)
+    {
+        var productLogic = DependencyResolver.ProductLogic;
+        int answer = 0;
+        try
+        {
+            var targetId = Int32.Parse(Request.Form["product_id"]);
+            var productType = Int32.Parse(Request.Form["product_type"]);
+            var productCategory = Int32.Parse(Request.Form["product_category"]);
+            var productWidth = Decimal.Parse(Request.Form["product_width"]);
+            var productHeight = Decimal.Parse(Request.Form["product_height"]);
+            var productPrice = Decimal.Parse(Request.Form["product_price"]);
+            var productTittle = Request.Form["product_tittle"];
+            var productImg = Request.Files["product_img"];
+            answer = productLogic.Update(productTittle, productType, productCategory, productWidth, productHeight, productPrice, productImg, targetId);
+        }
+
+        catch (FormatException e)
+        {
+            Logger.InitLogger();
+            Logger.Log.Error(e);
+            answer = 400;
+        }
+
+        switch (answer)
+        {
+            case 200:
+                {
+                    Response.Redirect("~/Pages/ItemViewPage.cshtml?ItemId="+Request.Form["product_id"]);
+                    break;
+                }
+            case 404:
+                {
+                    Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+                    break;
+                }
+            case 400:
+            default:
+                {
+                    Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+                    break;
+                }
+        }
+    }
+}
+

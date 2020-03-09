@@ -1,0 +1,103 @@
+﻿@using Epam.ExtPosterStore.BLL.Interfaces
+@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    if (Session["cart"]==null)
+    {
+        var newCart = DependencyResolver.CartLogic;
+        Session["cart"] = newCart;
+    }
+    ICartLogic cart = (ICartLogic) Session["cart"];
+    var cart_count = cart.GetAllCountPositions();
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Page.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <div class="menu_container">
+        <div class="search_bar">
+            <div class="con">
+                <div>
+                    <span class="logo">PosterStore.NET</span>
+                </div>
+            </div>
+            <div class="user_info">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="more_but">
+                        <span>@User.Identity.Name ⇅</span>
+                    </div>
+                    <div id="user_menu">
+                        <ul>
+                            <li><a href="~/Pages/PersonalAccountPage.cshtml">Личная информация</a></li>
+                            <li><a href="~/Pages/OrdersPage.cshtml">Список Заказов</a></li>
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li><a href="~/Pages/TypesAndCategories.cshtml">Типы/Категории</a></li>
+                                <li><a href="~/Pages/Users.cshtml">Пользователи</a></li>
+                            }
+                            <li><a href="~/Pages/ActionHandlers/UserActions/LogOut.cshtml">Выйти</a></li>
+                        </ul>
+                    </div>
+
+                }
+                else
+                {
+                    <div style="line-height: 75px; text-align: center">
+                        <span><a href="~/Pages/LogInPage.cshtml">Войти</a></span>
+                        <span><a href="~/Pages/RegistrationPage.cshtml">Зарегистрироваться</a></span>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="nav_menu">
+            <div class="con">
+                <ul class="menu">
+                    <li><a href="~/index.cshtml">Наша продукция</a></li>
+                    <li><a href="~/Pages/AboutUs.cshtml">О нас</a></li>
+                    <li>
+                        <div class="backet">
+                            <div id="c_count" class="bascket_count">@cart_count</div>
+                            <span><a href="~/Pages/Cart.cshtml">Корзина</a></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div>
+    @RenderBody()
+</div>
+<footer>
+</footer>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    jQuery(function ($) {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 75) {
+                $('.nav_menu').addClass('fixed');
+            }
+            else if ($(this).scrollTop() < 75) {
+                $('.nav_menu').removeClass('fixed');
+            }
+        });
+    });
+    $("#more_but").click(function (e) {
+        if ($("#user_menu").is(":hidden")) {
+            $("#user_menu").slideDown();
+        } else {
+            $("#user_menu").slideUp();
+        }
+        
+    });
+</script>

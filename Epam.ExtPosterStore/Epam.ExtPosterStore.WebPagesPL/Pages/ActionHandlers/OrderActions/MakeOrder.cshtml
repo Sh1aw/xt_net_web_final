@@ -1,0 +1,57 @@
+﻿@using Epam.ExtPosterStore.BLL.Interfaces
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.Logger
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    var city = Request.Form["city"];
+    var street = Request.Form["street"];
+    var building = Request.Form["building"];
+    var postcode = Request.Form["postcode"];
+    var paytype = Request.Form["payType"];
+
+    if (Session["cart"]==null)
+    {
+        var newCart = DependencyResolver.CartLogic;
+        Session["cart"] = newCart;
+    }
+    ICartLogic cart = (ICartLogic) Session["cart"];
+
+    var orderLogic = DependencyResolver.OrderLogic;
+    int response = 400;
+    if (InputNormalizer.ValidateInt(paytype))
+    {
+        int payTypeId = Int32.Parse(paytype);
+        try
+        {
+            var address = new Address(city,street,building,postcode);
+            response = orderLogic.makeOrder(User.Identity.Name,1,cart.GetFinalCost(),payTypeId,address,cart.GetAll());
+        }
+        catch (ArgumentException e)
+        {
+            Logger.InitLogger();
+            Logger.Log.Error(e);
+            response = 400;
+        }
+    }
+    switch (response)
+    {
+        case 500:
+        {
+            Response.Redirect("~/Pages/ErrorPages/Error500.cshtml");
+            break;
+        }
+        case 200:
+        {
+            cart.Clear();
+            Response.Redirect("~/Pages/InfoPages/OrderComplete.cshtml");
+            break;
+        }
+        case 400:
+        default:
+        {
+            Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+            break;
+        }
+    }
+}

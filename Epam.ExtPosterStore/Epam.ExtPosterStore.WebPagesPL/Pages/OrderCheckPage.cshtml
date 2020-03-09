@@ -1,0 +1,71 @@
+﻿@using Epam.ExtPosterStore.BLL.Interfaces
+@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Pages/LogInPage.cshtml");
+    }
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (Session["cart"]==null)
+    {
+        var newCart = DependencyResolver.CartLogic;
+        Session["cart"] =newCart;
+    }
+    ICartLogic cart = (ICartLogic) Session["cart"];
+    var payTypes = DependencyResolver.PayDao.GetAll();
+    var allItems = cart.GetAll();
+    var allProducts = DependencyResolver.ProductLogic.GetAll();
+    if (!allItems.Any())
+    {
+        Response.Redirect("~/index.cshtml");
+    }
+}
+<div class="main" style="padding: 20px">
+    <div class="cart_items" style="margin: auto;padding: 10px ">
+        <h5>Товары:</h5>
+        <hr />
+        @RenderPage("~/Pages/Partials/_PartialOrderProductInfo.cshtml", new { productData = allProducts, pairs = allItems })
+        <hr />
+        <h5>Итоговая цена: @cart.GetFinalCost()₽</h5>
+    </div>
+    <div class="ordering_info" style="padding: 10px">
+        <h5>Информация о заказе:</h5>
+        <hr />
+        <form method="post" action="~/Pages/ActionHandlers/OrderActions/MakeOrder.cshtml">
+        <div class="form-group">
+            <label>Тип оплаты:</label>
+            <select name="payType" class="form-control form-control-sm">
+                @foreach (var ptype in payTypes)
+                {
+                    <option value="@ptype.Id">@ptype.Tittle</option>
+                }
+            </select>
+        </div>
+        <h6>Адрес получателя:*</h6>
+        <div class="form-row">
+            <div class="col">
+                <label for="cityInput">Город:</label>
+                <input id="cityInput" class="form-control form-control-sm" name="city" type="text" required />
+            </div>
+            <div class="col">
+                <label for="streetInput">Улица:</label>
+                <input id="streetInput" class="form-control form-control-sm" name="street" type="text" required />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="buildingInput">Строение:</label>
+                <input id="buildingInput" class="form-control form-control-sm" name="building" type="text" required />
+                <small id="widthHelp" class="form-text text-muted">Дом/квартира</small>
+            </div>
+            <div class="col">
+                <label for="postCodeInput">Индекс:</label>
+                <input id="postCodeInput" class="form-control form-control-sm" name="postcode" type="text" pattern="\d{6}" required />
+                <small id="widthHelp" class="form-text text-muted">Индекс - 6 цифр; Пример: 410000.</small>
+            </div>
+        </div>
+            <span style="font-size: 12px">*Доставка осуществляется только почтой России!</span>
+            <input type="submit" value="Оформить заказ"/>
+        </form>
+    </div>
+</div>

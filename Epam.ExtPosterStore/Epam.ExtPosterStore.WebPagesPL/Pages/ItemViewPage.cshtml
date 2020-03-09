@@ -1,0 +1,54 @@
+﻿@using System.Web.Routing
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!InputNormalizer.ValidateInt(Request["ItemId"]))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+    }
+    int Itemid = Int32.Parse(Request["ItemId"]);
+    var prodLogic = DependencyResolver.ProductLogic;
+    var product = prodLogic.GetById(Itemid);
+    if (product == null)
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+    }
+}
+<div class="main" style="padding: 20px">
+    <div class="item_full_info">
+        <div class="img_wrapper">
+            <div class="smt">
+                <img src='@PictureDefaulting.GetBynaryImage(product.Image)' />
+            </div>
+        </div>
+        <div class="info_wrapper">
+            <div>
+                <div class="uph">
+                    <h3>Информация о товаре</h3>
+                </div>
+                <ul>
+                    <li>Наименование товара: <span>@product.Tittle</span></li>
+                    <li>Тип товара: <span>@product.TypeOfProduct.Tittle</span></li>
+                    <li>Высота товара: <span>@product.Height см.</span></li>
+                    <li>Ширина товара: <span>@product.Width см.</span></li>
+                    <li>Стоимость товара: <span class="price">@product.Price₽</span></li>
+                </ul>
+                <div style="text-align: center">
+                    @if (product.Visibility)
+                    {
+                        <div>
+                            <button id="addToCart" value="@product.Id" style="display: inline-block" class=" btn btn-info">Добавить в корзину</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <h5>Снят с продажи</h5>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/ItemViewScripts.js"></script>

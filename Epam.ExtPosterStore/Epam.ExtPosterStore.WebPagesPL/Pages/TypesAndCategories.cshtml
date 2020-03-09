@@ -1,0 +1,98 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error403.cshtml");
+    }
+    var categoryLogic = DependencyResolver.CategoryLogic;
+    var typesLogic = DependencyResolver.TypeOfProductLogic;
+    var categories = categoryLogic.GetAll();
+    var types = typesLogic.GetAll();
+}
+    <div id="adminContainer" class="main" style="padding: 20px">
+        <div style="text-align: center;padding: 10px">
+            <a class="btn btn-danger" id="showCatAdmin">Администрирование категорий товаров:</a>
+        </div>
+        <div id="catAdmin">
+            <div style="max-height: 350px; overflow: auto">
+                <table id="categoryTable" class="table table-bordered table-sm">
+                    <tr>
+                        <th>Id</th>
+                        <th>Наименование категории</th>
+                        <th>Изменить</th>
+                        <th>Удалить</th>
+                    </tr>
+                    @foreach (var category in categories)
+                    {
+                        <tr id="cat-@category.Id">
+                            <th>@category.Id</th>
+                            <th><input type="text" value="@category.Tittle" /></th>
+                            <th rel="btn"><button class="saveEditCat btn btn-info">Изменить</button></th>
+                            <th><button class="removeCat btn btn-danger">Удалить</button></th>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                <label for="inputCategoryTittle">Добавить новую категорию:</label>
+                <input type="text" class="form-control form-control-sm" id="inputCategoryTittle" required />
+                <div style="text-align: center; padding: 10px">
+                    <button id="addCategory" class="btn btn-info">Добавить</button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div style="text-align: center;padding: 10px">
+            <a class="btn btn-info" id="showTypeAdmin">Администрирование типов товаров:</a>
+        </div>
+        <div id="typeAdmin">
+            <div style="max-height: 350px; overflow: auto">
+                <table id="typesTable" class="table table-bordered table-sm">
+                    <tr>
+                        <th>Id</th>
+                        <th>Наименование типа</th>
+                        <th>Изменить</th>
+                        <th>Удалить</th>
+                    </tr>
+                    @foreach (var type in types)
+                    {
+                        <tr id="cat-@type.Id">
+                            <th>@type.Id</th>
+                            <th><input type="text" value="@type.Tittle" /></th>
+                            <th rel="btn"><button class="saveEditType btn btn-info">Изменить</button></th>
+                            <th><button class="removeType btn btn-danger">Удалить</button></th>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                <label for="inputTypeTittle">Добавить новую категорию:</label>
+                <input type="text" class="form-control form-control-sm" id="inputTypeTittle" required />
+                <div style="text-align: center; padding: 10px">
+                    <button id="addType" class="btn btn-info">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/typeScripts.js"></script>
+<script>
+    $("#showCatAdmin").click(function(e) {
+        if ($("#catAdmin").is(":hidden")) {
+            $("#catAdmin").slideDown();
+        }
+        else {
+            $("#catAdmin").slideUp();
+        }
+    })
+    $("#showTypeAdmin").click(function(e) {
+        if ($("#typeAdmin").is(":hidden")) {
+            $("#typeAdmin").slideDown();
+        }
+        else {
+            $("#typeAdmin").slideUp();
+        }
+    })
+</script>

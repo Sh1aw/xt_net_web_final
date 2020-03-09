@@ -1,0 +1,39 @@
+﻿.registration_form {
+    margin: 185px auto 0;
+    width: 300px;
+    top: 50%;
+    height: 370px;
+    box-shadow: 0 0 5px 5px darkgray;
+    padding: 20px;
+}
+
+.registration_form input[type="submit"] {
+    margin-top: 20px;
+}
+
+.registration_form h3 {
+    text-align: center;
+}
+.login_block {
+    border-left: 1px white solid;
+    align-self: end;
+    float: right;
+}
+
+.regRef {
+    margin: 10px auto;
+    text-align: center
+}
+.registration_form2 {
+    margin: 185px auto 0;
+    width: 600px;
+    top: 50%;
+    box-shadow: 0 0 5px 5px darkgray;
+    padding: 20px;
+}
+.registration_form2 h3 {
+    text-align: center;
+}
+.registration_form2 span{
+    font-size: 10px;
+}

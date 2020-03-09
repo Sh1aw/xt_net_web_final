@@ -1,0 +1,91 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Pages/LogInPage.cshtml");
+    }
+    var ordersLogic = DependencyResolver.OrderLogic;
+    var userLogic = DependencyResolver.UserLogic;
+    var userId = -1;
+    var states = DependencyResolver.OrderStateDao.GetAll();
+    IEnumerable<Order> orders = new List<Order>();
+    if (InputNormalizer.ValidateInt(Request["userId"]))
+    {
+         userId= Int32.Parse(Request["userId"]);
+    }
+    if (User.IsInRole("admin") && userId!=-1)
+    {
+        orders = ordersLogic.GetAllOrdersForUser(userId);
+    }
+    else if (User.IsInRole("admin"))
+    {
+        orders = ordersLogic.GetAllOrders();
+    }
+    else
+    {
+        var user = userLogic.GetByEmail(User.Identity.Name);
+        orders = ordersLogic.GetAllOrdersForUser(user.Id);
+    }
+    int state = -1;
+    if (IsAjax)
+    {
+        if (InputNormalizer.ValidateInt(Request["state"]))
+        {
+            state = Int32.Parse(Request["state"]);
+        }
+        if (states.Any(os=>os.Id==state))
+        {
+            orders = orders.Where(p => p.OrderState.Id == state);
+        }
+        if (Request["dateSort"]=="asc")
+        {
+            orders = orders.OrderBy(p => p.CreationTime);
+        }
+        else if (Request["dateSort"]=="desc")
+        {
+            orders = orders.OrderByDescending(p => p.CreationTime);
+        }
+    }
+}
+@if (orders.Any())
+{
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>id</th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>Покупатель</th>
+            }
+            <th>Дата и время заказа<a value="desc" id="dateSort">⇅</a></th>
+            <th>Тип оплаты</th>
+            <th>Итоговая стоймость</th>
+            <th>Состояние заказа</th>
+            <th>...</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in orders)
+        {
+            <tr>
+                <td>@item.Id</td>
+                @if (User.IsInRole("admin"))
+                {
+                    <th>@userLogic.GetById(item.UserId).Surname</th>
+                }
+                <td>@item.CreationTime</td>
+                <td>@item.TypeOfPay.Tittle</td>
+                <td>@item.FinalCost₽</td>
+                <td>@item.OrderState.Tittle</td>
+                <td><a href="~/Pages/OrderFullInfo.cshtml?orderId=@item.Id">подробнее</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">Список заказов пуст!</div>
+}

@@ -1,0 +1,65 @@
+﻿@using Epam.ExtPosterStore.BLL.Interfaces
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (Session["cart"]==null)
+    {
+        var newCart = DependencyResolver.CartLogic;
+        Session["cart"] =newCart;
+    }
+    ICartLogic cart = (ICartLogic) Session["cart"];
+    var allItems = cart.GetAll();
+    var allProducts = DependencyResolver.ProductLogic.GetAll();
+    var productsInbound = 
+        allItems.Join(allProducts, i => i.IdProduct, p => 
+            p.Id, (i, p) => new {tittle = p.Tittle, Id = p.Id,type = p.TypeOfProduct.Tittle, price = p.Price, count = i.CountProduct});
+}
+
+<div class="main" style="padding: 20px">
+    <h2>Ваша корзина:</h2>
+    @if (cart.GetAll().Any())
+    {
+        <table class="table table-bordered" style="text-align: center">
+            <thead>
+                <tr>
+                    <th>id товара</th>
+                    <th>Наименование</th>
+                    <th>Тип</th>
+                    <th>Цена за единицу</th>
+                    <th>Количество единиц</th>
+                    <th>Убрать</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in productsInbound)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td><a href="~/Pages/ItemViewPage.cshtml?ItemId=@item.Id">@item.tittle</a></td>
+                        <td>@item.type</td>
+                        <td>@item.price ₽</td>
+                        <td>@item.count</td>
+                        <td><button id="@item.Id" class="remove_item">X</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+        <h4>Итоговая цена товаров: <span id="fin_cost">@cart.GetFinalCost()</span> ₽</h4>
+        if (User.Identity.IsAuthenticated)
+        {
+            <a href="~/Pages/OrderCheckPage.cshtml" id="orderComplete" class="btn btn-danger">Оформить заказ</a>
+        }
+        else
+        {
+            <a href="~/Pages/LogInPage.cshtml" class="btn btn-danger">Для продолжения необходимо войти в аккаунт или зарегистрироваться</a>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">Ваша корзина пока пуста!</div>
+    }
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/CartScripts.js"></script>

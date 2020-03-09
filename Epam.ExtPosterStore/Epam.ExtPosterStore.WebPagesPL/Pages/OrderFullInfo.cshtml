@@ -1,0 +1,96 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Pages/LogInPage.cshtml");
+    }
+    if (!InputNormalizer.ValidateInt(Request["orderId"]))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+    }
+    int itemId = Int16.Parse(Request["orderId"]);
+    var ordersLogic = DependencyResolver.OrderLogic;
+    var order = ordersLogic.GetOrderById(itemId);
+    if (order==null)
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+    }
+    var userLogic = DependencyResolver.UserLogic;
+    var userInfo = userLogic.GetById(order.UserId);
+    var productOrdersLogic = DependencyResolver.ProductOrderLogic;
+    var productsLogic = DependencyResolver.ProductLogic;
+    var orderStateLogic = DependencyResolver.OrderStateLogic;
+    var states = orderStateLogic.GetAll();
+}
+<div class="main" style="padding: 20px">
+    <h4 style="text-align: center">Заказ ID @order.Id</h4>
+    <hr />
+    <h5>Информация о заказе:</h5>
+    <ul style="font-size: 20px" class="list-unstyled">
+        <li>Дата  и время заказа: <span class="badge badge-info">@order.CreationTime</span></li>
+        <li>Способ оплаты: <span class="badge badge-info">@order.TypeOfPay.Tittle</span></li>
+        <li>Текущее состояние: <span id="orderState" class="badge badge-info">@order.OrderState.Tittle</span></li>
+    </ul>
+    <hr />
+    <h5>Информация о товаре:</h5>
+    @RenderPage("~/Pages/Partials/_PartialOrderProductInfo.cshtml",
+        new { productData = productsLogic.GetAll(), pairs = productOrdersLogic.GetAllProductForOrder(itemId) })
+    <h5>Итоговая стоимость: @order.FinalCost₽</h5>
+    <hr />
+    <h5>Информация по доставке:</h5>
+    <div class="form-group">
+        <label>Адрес доставки:</label>
+        <label>
+            Город: @order.Address.City;
+            Улица: @order.Address.Street;
+            Строение: @order.Address.Building;
+            Индекс: @order.Address.PostCode;
+        </label>
+        <h6>Доставка производится только Почтой России!</h6>
+    </div>
+    <hr/>
+    <h5>Информация о клиенте:</h5>
+    <ul style="font-size: 20px" class="list-unstyled">
+        <li>Имя и Фамилия: <span class="badge badge-info">@userInfo.Name @userInfo.Surname</span></li>
+        <li>Адресс электронной почты: <span class="badge badge-info">@userInfo.Email</span></li>
+        <li>Телефон: <span class="badge badge-info">@userInfo.PhoneNumber</span></li>
+    </ul>
+    <div>
+        <h5 style="text-align: center">Управление заказом</h5>
+        <input type="hidden" id="order_id" value="@order.Id" />
+        @if (!User.IsInRole("admin"))
+        {
+            <div style="text-align: center">
+                <button class="btn btn-danger" id="abort_order">Отменить заказ</button>
+            </div>
+        }
+        else
+        {
+            <div>
+                <div style="text-align: center;" class="form-group">
+                    <label>Изменить статус заказа:</label>
+                    <select id="order_states" class="form-control form-control-sm">
+                        @foreach (var state in states)
+                        {
+                            if (state.Id == order.OrderState.Id)
+                            {
+                                <option value="@state.Id" selected>@state.Tittle</option>
+                            }
+                            else
+                            {
+                                <option value="@state.Id">@state.Tittle</option>
+                            }
+                        }
+                    </select>
+                    <br />
+                    <button id="change_status" class="btn btn-info">Изменить статус заказа</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/OrderFullScripts.js"></script>

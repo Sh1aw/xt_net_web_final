@@ -1,0 +1,96 @@
+﻿@using System.Globalization
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error403.cshtml");
+    }
+    if (!InputNormalizer.ValidateInt(Request["ItemId"]))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+    }
+    int itemId = Int32.Parse(Request["ItemId"]);
+    var prodLogic = DependencyResolver.ProductLogic;
+    var product = prodLogic.GetById(itemId);
+    if (product==null)
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+    }
+    var typesLogic = DependencyResolver.TypeOfProductLogic;
+    var types = typesLogic.GetAll();
+    var categoryLogic = DependencyResolver.CategoryLogic;
+    var categories = categoryLogic.GetAll();
+}
+<div class="main" style="padding: 20px">
+    <h2 style="text-align: center">Обноваление товара</h2>
+    <hr/>
+    <form method="post" action="~/Pages/ActionHandlers/ProductActions/UpdateProductHandler.cshtml" runat="server" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="product_tittle">Наименование Товара:</label>
+            <input id="product_tittle" class="form-control form-control-sm" type="text" name="product_tittle" value="@product.Tittle" required>
+        </div>
+        <div class="form-group">
+            <label for="product_type">Тип товара:</label>
+            <select id="product_type" class="form-control form-control-sm" name="product_type" required>
+                @foreach (var type in types)
+                {
+                    if (type.Id == product.TypeOfProduct.Id)
+                    {
+                        <option selected="" value="@type.Id">@type.Tittle</option>
+                    }
+                    else
+                    {
+                        <option value="@type.Id">@type.Tittle</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="product_category">Тип товара:</label>
+            <select id="product_category" class="form-control form-control-sm" name="product_category" required>
+                @foreach (var category in categories)
+                {
+                    if (category.Id == product.ProductCategory.Id)
+                    {
+                        <option selected="" value="@category.Id">@category.Tittle</option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">@category.Tittle</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="product_width">Ширина в см:</label>
+                <input id="product_width" class="form-control form-control-sm"
+                       name="product_width" value="@product.Width" type="text" pattern="^[1-9]\d*(\.|,\d{0,2})?$" required />
+                <small id="widthHelp" class="form-text text-muted">Пример формата: 55,5.</small>
+            </div>
+            <div class="col">
+                <label for="product_height">Длина в см:</label>
+                <input id="product_height" step="0.1" class="form-control form-control-sm" pattern="^[1-9]\d*(\.|,\d{0,2})?$" name="product_height"
+                       value="@product.Height" type="text" required />
+                <small id="widthHelp" class="form-text text-muted">Пример формата: 55,5.</small>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="product_img">Изображение: jpg/png не более 3мб.</label>
+            <img style="max-width: 200px" src="@PictureDefaulting.GetBynaryImage(product.Image)" />
+            <input id="product_img" class="form-control-file form-control-sm" name="product_img" type="file" />
+        </div>
+        <div class="form-group">
+            <label for="product_price">Цена товара в &#8381</label>
+            <input id="product_price" class="form-control form-control-sm" name="product_price" value="@product.Price" type="text" pattern="^[1-9]\d*(\.|,\d{0,2})?$" required />
+            <small id="widthHelp" class="form-text text-muted">Пример формата: 999,99.</small>
+        </div>
+        <input type="hidden" name="product_id" value="@product.Id"/>
+        <div class="align-content-center">
+            <input type="submit" class="btn btn-info" value="Обновить информацию" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,111 @@
+﻿@using System.Collections
+@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    var productLogic = DependencyResolver.ProductLogic;
+    IEnumerable<Product> products = new List<Product>();
+    if (User.IsInRole("admin"))
+    {
+        products = productLogic.GetAll();
+    }
+    else
+    {
+        products = productLogic.GetAll().Where(p => p.Visibility);
+    }
+    var categories = DependencyResolver.CategoryLogic.GetAll();
+    var types = DependencyResolver.TypeOfProductLogic.GetAll();
+    if (IsAjax)
+    {
+        int category = -1;
+        int type = -1;
+        int visibility = -1;
+        if (InputNormalizer.ValidateInt(Request["category"]))
+        {
+            category = Int32.Parse(Request["category"]);
+        }
+        if (categories.Any(p => p.Id == category))
+        {
+            products = products.Where(p => p.ProductCategory.Id == category);
+        }
+
+        if (InputNormalizer.ValidateInt(Request["type"]))
+        {
+            type = Int32.Parse(Request["type"]);
+        }
+        if (types.Any(p => p.Id == type))
+        {
+            products = products.Where(p => p.TypeOfProduct.Id == type);
+        }
+
+        if (InputNormalizer.ValidateInt(Request["visibility"]))
+        {
+            visibility = Int32.Parse(Request["visibility"]);
+        }
+        switch (visibility)
+        {
+            case 1:
+                {
+                    products = products.Where(p => p.Visibility);
+                    break;
+                }
+            case 0:
+                {
+                    products = products.Where(p => !p.Visibility);
+                    break;
+                }
+        }
+    }
+}
+@if (products.Any())
+{
+    foreach (var product in products)
+    {
+    <div class="item_container" id="pr-@product.Id">
+        @if (User.IsInRole("admin"))
+        {
+            <div class="admin_product_panel">
+                <div class="edit_apanel">
+                    <a href="~/Pages/EditProductPage.cshtml?ItemId=@product.Id" class="btn btn-info btn-sm">Рeд.</a>
+                    @if (product.Visibility)
+                    {
+                        <button class="hideProduct btn">Снять с продажи</button>
+                    }
+                    else
+                    {
+                        <button class="showProduct btn">Выставить на продажу</button>
+                    }
+                    <button class="deleteProduct btn btn-danger">X</button>
+                </div>
+            </div>
+        }
+        <div class="inner">
+            <img src='@PictureDefaulting.GetBynaryImage(product.Image)'/>
+            <div class="item_info">
+                <div>Тип: @product.TypeOfProduct.Tittle</div>
+                <div>Наименование: @product.Tittle</div>
+                <div>Категория: @product.ProductCategory.Tittle</div>
+                <div style="font-weight: bold">
+                    @if (@product.Visibility)
+                    {
+                        <span>@product.Price₽</span>
+                    }
+                    else
+                    {
+                        <span>Снят с продажи</span>
+                    }
+                </div>
+            </div>
+            <a href="~/Pages/ItemViewPage.cshtml?ItemId=@product.Id" class="btn btn-danger">Подробнее</a>
+            @if (@product.Visibility)
+            {
+                <button id="@product.Id" class="addToCart btn btn-danger">В корзину</button>
+            }
+        </div>
+    </div>
+    }
+}
+else
+{
+    <div class="alert alert-info">Список продуктов пуст!</div>
+}

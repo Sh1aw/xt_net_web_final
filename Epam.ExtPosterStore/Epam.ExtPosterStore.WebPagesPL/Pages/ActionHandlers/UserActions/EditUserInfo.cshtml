@@ -1,0 +1,28 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    var firstName = Request["first_name"];
+    var secondName = Request["second_name"];
+    var phoneNumber = Request["phone_number"] ?? null;
+
+    var userLogic = DependencyResolver.UserLogic;
+    int response = userLogic.UpdateUserInfo(User.Identity.Name, firstName, secondName, phoneNumber);
+    switch (response)
+    {
+        case 200:
+        {
+            Response.Redirect("~/Pages/PersonalAccountPage");
+            break;
+        }
+        case 400:
+        {
+            Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+            break;
+        }
+        case 404:
+        default:
+        {
+            Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+            break;
+        }
+    }
+}

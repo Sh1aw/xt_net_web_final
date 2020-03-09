@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.DAL", "Epam.ExtPosterStore.DAL\Epam.ExtPosterStore.DAL.csproj", "{04883E6B-DC05-4013-82F7-6D00B3158134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.Dao.Interfaces", "Epam.ExtPosterStore.Dao.Interfaces\Epam.ExtPosterStore.Dao.Interfaces.csproj", "{23D2749B-8572-420F-92F8-0FEFB93575FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.BLL", "Epam.ExtPosterStore.BLL\Epam.ExtPosterStore.BLL.csproj", "{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.BLL.Interfaces", "Epam.ExtPosterStore.BLL.Interfaces\Epam.ExtPosterStore.BLL.Interfaces.csproj", "{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.BLL.Ioc", "Epam.ExtPosterStore.BLL.Ioc\Epam.ExtPosterStore.BLL.Ioc.csproj", "{E451C36F-C4A1-4F4C-8E63-111818AD6549}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{E7E718EF-0DE7-4474-B2EF-C60E668B58B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{35A6F0AC-1EF8-4588-B31A-1526AC89705F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.Entities", "Epam.ExtPosterStore.Entities\Epam.ExtPosterStore.Entities.csproj", "{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{94A126DE-7461-440A-8001-57E2DC951F2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.WebPagesPL", "Epam.ExtPosterStore.WebPagesPL\Epam.ExtPosterStore.WebPagesPL.csproj", "{F630360E-95E1-4EB3-B656-465E229DC662}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{9D788940-F096-48D8-8C21-34C3790334F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.ExtPosterStore.Logger", "Epam.ExtPosterStore.Logger\Epam.ExtPosterStore.Logger.csproj", "{430609F9-7F51-419B-9184-BE8BB95321CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04883E6B-DC05-4013-82F7-6D00B3158134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04883E6B-DC05-4013-82F7-6D00B3158134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04883E6B-DC05-4013-82F7-6D00B3158134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04883E6B-DC05-4013-82F7-6D00B3158134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D2749B-8572-420F-92F8-0FEFB93575FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D2749B-8572-420F-92F8-0FEFB93575FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D2749B-8572-420F-92F8-0FEFB93575FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D2749B-8572-420F-92F8-0FEFB93575FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E451C36F-C4A1-4F4C-8E63-111818AD6549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E451C36F-C4A1-4F4C-8E63-111818AD6549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E451C36F-C4A1-4F4C-8E63-111818AD6549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E451C36F-C4A1-4F4C-8E63-111818AD6549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F630360E-95E1-4EB3-B656-465E229DC662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F630360E-95E1-4EB3-B656-465E229DC662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F630360E-95E1-4EB3-B656-465E229DC662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F630360E-95E1-4EB3-B656-465E229DC662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430609F9-7F51-419B-9184-BE8BB95321CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430609F9-7F51-419B-9184-BE8BB95321CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430609F9-7F51-419B-9184-BE8BB95321CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430609F9-7F51-419B-9184-BE8BB95321CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04883E6B-DC05-4013-82F7-6D00B3158134} = {35A6F0AC-1EF8-4588-B31A-1526AC89705F}
+		{23D2749B-8572-420F-92F8-0FEFB93575FD} = {35A6F0AC-1EF8-4588-B31A-1526AC89705F}
+		{AA7C6357-8845-4D56-9FA8-2F9E01FF6E4A} = {E7E718EF-0DE7-4474-B2EF-C60E668B58B3}
+		{0DBED11C-DE34-40C3-8E98-B2A8EB0C7B52} = {E7E718EF-0DE7-4474-B2EF-C60E668B58B3}
+		{E451C36F-C4A1-4F4C-8E63-111818AD6549} = {94A126DE-7461-440A-8001-57E2DC951F2A}
+		{1BEFEE22-6D66-494D-B3B4-3055BBAF95D5} = {94A126DE-7461-440A-8001-57E2DC951F2A}
+		{F630360E-95E1-4EB3-B656-465E229DC662} = {9D788940-F096-48D8-8C21-34C3790334F3}
+		{430609F9-7F51-419B-9184-BE8BB95321CE} = {94A126DE-7461-440A-8001-57E2DC951F2A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0341B31B-0100-4B90-B1A3-31AC47B9283C}
+	EndGlobalSection
+EndGlobal

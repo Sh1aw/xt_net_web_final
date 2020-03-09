@@ -1,0 +1,14 @@
+﻿@using Epam.ExtPosterStore.BLL.Interfaces
+@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    var idProduct = Int32.Parse(Request["idProduct"]);
+    if (Session["cart"]==null)
+    {
+        var newCart = DependencyResolver.CartLogic;
+        Session["cart"] = newCart;
+    }
+    ICartLogic cart = (ICartLogic) Session["cart"];
+    cart.Remove(idProduct);
+    Response.Write(Json.Encode(new { success = true, responseText= cart.GetAllCountPositions(), newCost = cart.GetFinalCost() }));
+}
+

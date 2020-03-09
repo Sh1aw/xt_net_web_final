@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/index.cshtml");
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/log_reg.css" rel="stylesheet" />
+</head>
+<body>
+<div style="height: 100%;">
+    <div class="registration_form2">
+        <form method="post" action="~/Pages/ActionHandlers/UserActions/UserRegistration.cshtml">
+            <h3 class="text-info">Registration Page</h3>
+            <hr />
+            <div class="form-group">
+                <label for="emailInput">Адресс электронной почты:*</label>
+                <input id="emailInput" required class="form-control" type="email" name="email" />
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">Пароль:*</label>
+                <input id="passwordInput" class="form-control" maxlength="16" minlength="6" required type="password" name="password" />
+            </div>
+            <div class="form-group">
+                <label for="passwordInputC">Подтвердите пароль:*</label>
+                <input id="passwordInputC" class="form-control" required maxlength="16" minlength="6" type="password" name="password_confirm" />
+            </div>
+            <div class="form-group">
+                <label for="nameInput">Имя:*</label>
+                <input id="nameInput" class="form-control" required type="text" name="first_name" />
+            </div>
+            <div class="form-group">
+                <label for="surnameInput">Фамилия:*</label>
+                <input id="surnameInput" class="form-control" required type="text" name="second_name" />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Телефон:</label>
+                <input id="phoneNumber" class="form-control" placeholder="8**********" pattern="[8]{1}[0-9]{10}" type="tel" name="phone_number" />
+            </div>
+            
+            <div class="text-center">
+                <input type="submit" class="btn btn-info" value="Register" />
+            </div>
+        </form>
+        <div class="regRef">
+            <a href="/Pages/LogInPage.cshtml">Log In</a>
+        </div>
+        <span>Поля отмеченные * являются обязательными!</span>
+    </div>
+</div>
+</body>
+</html>

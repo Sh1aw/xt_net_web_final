@@ -1,0 +1,11 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        var categoryLogic = DependencyResolver.CategoryLogic;
+        var categoryTittle = Request.Form["itemTittle"];
+        Response.StatusCode = categoryLogic.Add(categoryTittle);
+    }
+}

@@ -1,0 +1,63 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Epam.ExtPosterStore.BLL.Ioc;
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@using DependencyResolver = Epam.ExtPosterStore.BLL.Ioc.DependencyResolver
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    Page.Tittle = "Наша продукция";
+    var categories = DependencyResolver.CategoryLogic.GetAll();
+    var types = DependencyResolver.TypeOfProductLogic.GetAll();
+}
+
+<div class="main">
+    <h1>Наша продукция</h1>
+    @if (User.IsInRole("admin"))
+    {
+        <div style="text-align: center">
+            <a class="btn btn-danger" href="~/Pages/AddNewProductPage.cshtml">Добавить новый товар</a>
+        </div>
+    }
+    <hr />
+    <div class="product_sort">
+        <div class="form-row">
+            <div class="col form-group">
+                <label>Отобразить только товары категории:</label>
+                <select id="categorySort" class="form-control form-control-sm">
+                    <option>Все категории</option>
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Tittle</option>
+                    }
+                </select>
+            </div>
+            <div class="col form-group">
+                <label>Отобразить только товары типа:</label>
+                <select id="typeSort" class="form-control form-control-sm">
+                    <option>Все типы</option>
+                    @foreach (var type in types)
+                    {
+                        <option value="@type.Id">@type.Tittle</option>
+                    }
+                </select>
+            </div>
+            @if (User.IsInRole("admin"))
+            {
+                <div class="col form-group">
+                    <label>Отобразить снятые/доступные товары:</label>
+                    <select id="visibilitySort" class="form-control form-control-sm">
+                        <option value="-1">Все</option>
+                        <option value="1">Доступен для покупки</option>
+                        <option value="0">Снят с продажи</option>
+                    </select>
+                </div>
+            }
+        </div>
+    </div>
+    <div id="targetItemsTable" class="items_table">
+        @RenderPage("~/Pages/Partials/PartialProducts.cshtml")
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/ProductsListScript.js"></script>

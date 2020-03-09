@@ -1,0 +1,15 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    if (IsPost)
+    {
+        if (InputNormalizer.ValidateInt(Request["IdProduct"]))
+        {
+            var idProdcut = Int32.Parse(Request["IdProduct"]);
+            var productLogic = DependencyResolver.ProductLogic;
+            var answer = productLogic.Show(idProdcut);
+            Response.StatusCode = answer;
+        }
+    }
+}
+

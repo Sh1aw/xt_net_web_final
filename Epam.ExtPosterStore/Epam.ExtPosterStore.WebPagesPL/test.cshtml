@@ -1,0 +1,41 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@using Epam.ExtPosterStore.Logger
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+<div id="someThing">
+</div>
+<button id="sort">sort Asc</button>
+<button id="sortDesc">sort Asc</button>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $("#sortDesc").click(function(e) {
+        $("#someThing").load("/Pages/_Partials/PartialTime.cshtml", { sort: "desc" });
+    });
+
+    $("#sort").click(function(e) {
+        //$("#someThing").load("/Pages/Partials/_PartialTime.cshtml", { sort: "desc" });
+        $.ajax({
+
+            url: '/Pages/Partials/_PartialTime.cshtml?sort=asc',
+            type:"GET",
+            dataType: "json",
+            //data: { id: 1 },//this is as per your requirement
+            success: function (data) {
+                $('#someThing').html(data);
+            },
+        });
+    });
+</script>

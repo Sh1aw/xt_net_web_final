@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/index.cshtml");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/log_reg.css" rel="stylesheet" />
+</head>
+<body>
+<div class="registration_form">
+    <form method="post" action="~/Pages/ActionHandlers/UserActions/UserAuthorization.cshtml">
+        <h3 class="text-info">Log In Page</h3>
+        <hr />
+        <div class="form-group">
+            <label for="loginInput">Username:</label>
+            <input id="loginInput" required="" class="form-control" type="email" name="email" />
+        </div>
+        <div class="form-group">
+            <label for="passwordInput">Password:</label>
+            <input id="passwordInput" class="form-control" required="" type="password" name="password" />
+        </div>
+        <div class="text-center">
+            <input type="submit" class="btn btn-info" value="Log In" />
+        </div>
+    </form>
+    <div class="regRef">
+        <a href="/Pages/RegistrationPage.cshtml">Registration</a>
+    </div>
+</div>
+<div class="alert alert-warning" style="width: 350px; margin: 25px auto;text-align: center">
+    <p>Email/Пароль с правами администратора по умолчанию:
+        admin@admin.net/123456</p>
+</div>
+</body>
+</html>

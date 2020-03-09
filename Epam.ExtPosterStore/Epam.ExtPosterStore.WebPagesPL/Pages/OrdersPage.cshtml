@@ -1,0 +1,41 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.Entities
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Pages/LogInPage.cshtml");
+    }
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    var stateLogic = DependencyResolver.OrderStateLogic;
+    var allStates = stateLogic.GetAll();
+}
+
+<div class="main" style="padding: 20px;">
+    <h4 style="text-align: center; position: relative">
+        @if (User.IsInRole("admin"))
+        {
+            <text>Список всех заказов:</text>
+        }
+        else
+        {
+            <text>Список ваших заказов:</text>
+        }
+    </h4>
+    <div class="sort-body">
+        <div class="form-group">
+            <label>Отобразить только со статусом:</label>
+            <select id="stateSort" class="form-control-sm form-control">
+                <option>Всe статусы</option>
+                @foreach (var state in allStates)
+                {
+                    <option value="@state.Id">@state.Tittle</option>
+                }
+            </select>
+        </div>
+        </div>
+        <div id="target">
+            @RenderPage("~/Pages/Partials/PartialOrders.cshtml")
+        </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/OrdersPageScripts.js"></script>

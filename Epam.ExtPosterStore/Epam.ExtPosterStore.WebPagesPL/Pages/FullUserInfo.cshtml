@@ -1,0 +1,54 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@using Epam.ExtPosterStore.WebPagesPL.Common
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error403.cshtml");
+    }
+    if (!InputNormalizer.ValidateInt(Request["userId"]))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error400.cshtml");
+    }
+    var userId = Int32.Parse(Request["userId"]);
+    var user = DependencyResolver.UserLogic.GetById(userId);
+    if (user==null)
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error404.cshtml");
+    }
+}
+    <div class="main">
+        <h5>Информация о пользователе: ID @user.Id</h5>
+        <hr />
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Имя</label>
+                <input class="form-control form-control-sm" disabled type="text" value="@user.Name" />
+            </div>
+            <div class="form-group col">
+                <label>Фамилия</label>
+                <input class="form-control form-control-sm" disabled type="text" value="@user.Surname" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Email</label>
+                <input class="form-control form-control-sm" disabled type="text" value="@user.Email" />
+            </div>
+            <div class="form-group col">
+                <label>Телефон</label>
+                <input class="form-control form-control-sm" disabled type="text" value="@user.PhoneNumber" />
+            </div>
+            <div class="form-group col">
+                <label>Текущая роль</label>
+                <input class="form-control form-control-sm" disabled type="text" value="@user.Role.Name" />
+            </div>
+        </div>
+        <div>
+            <h5>Заказы данного пользователя:</h5>
+            <hr/>
+            <div id="target" style="max-height: 350px; overflow: auto">
+                @RenderPage("~/Pages/Partials/PartialOrders.cshtml", new {userId = user.Id})
+            </div>
+        </div>
+    </div>

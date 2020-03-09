@@ -1,0 +1,52 @@
+﻿@using Epam.ExtPosterStore.BLL.Ioc
+@{
+    Layout = "~/Pages/Layouts/_LayoutPage1.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/Pages/ErrorPages/Error403.cshtml");
+    }
+    var userLogic = DependencyResolver.UserLogic;
+    var users = userLogic.GetAll();
+    var roles = DependencyResolver.RoleLogic.GetAll();
+}
+<div class="main" style="padding: 20px">
+    <h5 style="text-align: center">Пользователи сайта:</h5>
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>ФИ</th>
+            <th>Текущая роль</th>
+            <th>Изменить роль</th>
+        </tr>
+        </thead>
+        @foreach (var user in users)
+        {
+            <tr id="u-@user.Id">
+                <td>@user.Id</td>
+                <td><a href="FullUserInfo.cshtml?userId=@user.Id">@user.Email</a></td>
+                <td>@user.Surname @user.Name</td>
+                <td>@user.Role.Name</td>
+                <td>
+                    <select class="changeRole">
+                        @foreach (var role in roles)
+                        {
+                            if (user.Role.Id == role.Id)
+                            {
+                                <option value="@role.Id" selected>@role.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@role.Id">@role.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/UsersScripts.js"></script>
+
